@@ -1,5 +1,4 @@
-from selenium.webdriver.firefox.webdriver import WebDriver
-from application import Application
+from fixtures.application import Application
 import pytest
 from pages.group import Group
 
@@ -12,7 +11,6 @@ def app(request):
 
 
 def test_add_group(app):
-    app.login(username="admin", password="secret")
-    group = Group(name="Group 1", header="Header 1", footer="Footer 1")
-    group.create_group()
-    app.logout()
+    app.session.login(username="admin", password="secret")
+    app.group.create(Group(name="Group 1", header="Header 1", footer="Footer 1"))
+    app.session.logout()
